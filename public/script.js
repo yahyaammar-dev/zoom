@@ -18,7 +18,7 @@ navigator.mediaDevices.getUserMedia({
 
 
 
-  myVideoStream.getTracks().forEach(track => senders.push(peerConnection.addTrack(track, myVideoStream)));
+  myVideoStream.getTracks().forEach(track => senders.push(myPeer.addTrack(track, myVideoStream)));
 
 
   addVideoStream(myVideo, stream)
