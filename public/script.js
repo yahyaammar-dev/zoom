@@ -109,7 +109,7 @@ const playStop = () => {
 }
 
 
-const shareUnshare = () => {
+const shareUnshare = async () => {
   console.log('ammar')
 
   if (!displayMediaStream) {
