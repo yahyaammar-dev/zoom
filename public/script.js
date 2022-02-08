@@ -1,3 +1,4 @@
+const senders = [];
 const socket = io('/')
 const videoGrid = document.getElementById('video-grid')
 const myPeer = new Peer(undefined, {
@@ -14,6 +15,12 @@ navigator.mediaDevices.getUserMedia({
   audio: true
 }).then(stream => {
   myVideoStream = stream;
+
+
+
+  myVideoStream.getTracks().forEach(track => senders.push(peerConnection.addTrack(track, myVideoStream)));
+
+
   addVideoStream(myVideo, stream)
   myPeer.on('call', call => {
     call.answer(stream)
@@ -100,6 +107,20 @@ const playStop = () => {
     myVideoStream.getVideoTracks()[0].enabled = true;
   }
 }
+
+
+const shareUnshare = () => {
+  console.log('ammar')
+
+  if (!displayMediaStream) {
+    displayMediaStream = await navigator.mediaDevices.getDisplayMedia();
+  }
+  senders.find(sender => sender.track.kind === 'video').replaceTrack(displayMediaStream.getTracks()[0]);
+  
+
+
+}
+
 
 const setMuteButton = () => {
   const html = `
